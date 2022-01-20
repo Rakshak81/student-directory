@@ -32,7 +32,6 @@ def print_footer(names)
 #  end
 end
 
-
 students = input_students
 if students.count > 0
   print_header
