@@ -40,9 +40,18 @@ def print_header
   puts "-------------"
 end
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students_by_cohort = {}
+   students.each do |cohort|
+  cohort = students[:cohort]
+  
+  if students_by_cohort == nil
+    students_by_cohort[cohort] = []
   end
+  
+  students_by_cohort[cohort].push(student["name"])
+   end
+   
+
 end
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
@@ -52,3 +61,13 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+
+  # sport = person["sport"]
+  
+  # if people_by_sport[sport] == nil
+  #   people_by_sport[sport] = []
+  # end
+  
+  # people_by_sport[sport].push(person["name"])
+
+
