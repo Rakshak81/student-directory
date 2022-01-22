@@ -1,8 +1,8 @@
 @students = [] # an empty array accessible to all methods
 
 def print_menu
-  puts "1. Input the students\n 2. Show the students "
-  puts "3. Save the list to students.csv\n 2. Show the students"
+  puts "1. Input the students\n2. Show the students "
+  puts "3. Save the list to students.csv\n4. load students"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -63,20 +63,22 @@ def print_footer
 end
 
 def save_students
-  # open the file for writing
-  file = File.open("students.csv", "w")
-  # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  puts "Enter File to be Saved"
+  file_name = gets.chomp
+  file = File.open("#{file_name}", "w") 
+  @students.each do |student|# iterate over the array of students
+  student_data = [student[:name], student[:cohort]]
+  csv_line = student_data.join(",")
+  file.puts csv_line
   end
   file.close
   puts "File saved"
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+def load_students
+  puts "Enter the file to be loaded"
+  file_name = gets.chomp
+  file = File.open("#{file_name}", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
   add_students(name)
@@ -89,7 +91,7 @@ def add_students(name)
   @students << {name: name, cohort: :november}
 end
 
-def command_load_students
+def try_load_students
   filename = ARGV.first# first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
